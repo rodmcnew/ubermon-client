@@ -58,9 +58,10 @@ class MonitorManagerContainer extends Component {
                                 {this.props.monitorList.length !== 0 &&
                                 <div>
                                     <br/>
-                                    <MonitorList monitors={this.props.monitorList}
-                                                 selectedMonitorId={this.props.selectedMonitorId}
-                                                 onSelectMonitor={this.handleSelectMonitorClick}/>
+                                    <MonitorList
+                                        monitors={this.props.monitorList}
+                                        selectedMonitorId={this.props.selectedMonitorId}
+                                        onSelectMonitor={this.handleSelectMonitorClick}/>
                                 </div>
                                 }
 
@@ -74,12 +75,9 @@ class MonitorManagerContainer extends Component {
                                 <h3 className="panel-title">Selected Monitor</h3>
                             </div>
                             <div className="panel-body">
-                                <MonitorDetailsDisplay monitor={this.props.selectedMonitor}
-                                                       monitorIntervals={this.ubermonConfig.monitorIntervals}/>
-                                {/*<ubermon-monitor-details-display selected-monitor="selectedMonitor"*/}
-                                {/*handle-server-error="handleServerError"*/}
-                                {/*monitor-intervals="monitorIntervals">*/}
-                                {/*</ubermon-monitor-details-display>*/}
+                                <MonitorDetailsDisplay
+                                    monitor={this.props.selectedMonitor}
+                                    monitorIntervals={this.ubermonConfig.monitorIntervals}/>
                             </div>
                         </div>
                     </div>
