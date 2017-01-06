@@ -24,23 +24,39 @@ export default class MonitorList extends Component {
 
     render() {
         return (
-            <table className="table table-sm">
+            <table className="table table-hover">
                 <tbody>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Url</th>
-                </tr>
                 {this.props.monitors.map((monitor, i) =>
-                    <tr key={i}>
+                    <tr key={i}
+                        onClick={()=>this.props.onSelectMonitor(monitor.id)}
+                        style={{cursor: 'pointer'}}
+                        className={monitor.id === this.props.selectedMonitorId ? 'active' : ''}>
                         <td>
-                            {monitor.id}
-                        </td>
-                        <td>
-                            {monitor.name}
-                        </td>
-                        <td>
-                            {monitor.url}
+                            {monitor.up === true &&
+                            <span
+                                className="text-success glyphicon glyphicon-ok"
+                                title="Status: Up"/>
+                            }
+                            {monitor.up === false &&
+                            <span className="text-danger glyphicon glyphicon-remove"
+                                  title="Status: Down"/>
+                            }
+                            {monitor.up === null &&
+                            <span className="text-primary glyphicon glyphicon-question-sign"
+                                  title="Status: Starting"/>
+                            }
+                            &nbsp;
+                            <span>{monitor.name}</span>
+
+                            <button style={{float: 'right'}}
+                                    className="btn btn-default btn-xs">
+                                <span className="glyphicon glyphicon-trash" title="Delete"/>
+                            </button>
+                            <span style={{float: 'right'}}>&nbsp;</span>
+                            <button style={{float: 'right'}}
+                                    className="btn btn-default btn-xs">
+                                <span className="glyphicon glyphicon-edit" title="Edit"/>
+                            </button>
                         </td>
                     </tr>
                 )}
@@ -53,4 +69,6 @@ export default class MonitorList extends Component {
 
 MonitorList.propTypes = {
     monitors: PropTypes.array.isRequired,
+    onSelectMonitor: PropTypes.func.isRequired,
+    selectedMonitorId: PropTypes.number
 };

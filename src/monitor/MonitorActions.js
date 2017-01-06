@@ -1,16 +1,25 @@
 import fetch from 'isomorphic-fetch'
 
 export const RECEIVE_MONITOR_LIST = 'RECEIVE_MONITOR_LIST';
+export const MONITOR_SELECTED = 'MONITOR_SELECTED';
 
 let userApiBase = 'http://www.ubermon.com/api/Monitors';
 
-export function fetchMonitorListIfNeeded(accessToken) {
+export function selectMonitor(monitorId) {
+    return monitorSelected(monitorId);
+}
+
+function monitorSelected(monitorId) {
+    return {
+        type: MONITOR_SELECTED,
+        monitorId: monitorId
+    }
+}
+
+
+export function fetchMonitorList(accessToken) {
     return (dispatch, getState) => {
-       const state=getState();
-        console.log(state);
-        if(!state.session){
-            return;//@TODO do better here?
-        }
+        const state = getState();
         return fetch(userApiBase + '/listMine?access_token=' + state.session.accessToken, {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}

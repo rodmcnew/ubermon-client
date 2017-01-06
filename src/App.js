@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import {Provider} from 'react-redux'
 import configureStore from './configureStore'
 import {Router, Route, IndexRedirect, hashHistory} from 'react-router'
-import LoginFormContainer from './login/LoginFormContainer'
+import LoginFormContainer from './session/LoginFormContainer'
 import MonitorManagerContainer from './monitor/MonitorManagerContainer'
+import './App.css'
 const store = configureStore();
 
 export default class App extends Component {
