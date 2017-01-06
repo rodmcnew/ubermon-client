@@ -1,7 +1,7 @@
-import {RECEIVE_MONITOR_LIST} from './MonitorActions'
+import {MONITOR_LIST_RECEIVED} from './MonitorActions'
 export default (state = [], action) => {
     switch (action.type) {
-        case RECEIVE_MONITOR_LIST:
+        case MONITOR_LIST_RECEIVED:
             return action.monitorList;
         default:
             return state

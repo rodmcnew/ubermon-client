@@ -1,26 +1,36 @@
 import React, {PropTypes, Component} from 'react'
 
 export default class MonitorDetailsDisplay extends Component {
+    getStatusDescription(monitor) {
+        if (monitor.up === true) {
+            return 'Up';
+        } else if (monitor.up === false) {
+            return 'Down';
+        } else if (monitor.up === null) {
+            return 'Starting'
+        } else {
+            throw new Error('Invalid value in monitor.up')
+        }
+    }
+
     render() {
+        const monitor = this.props.monitor;
         return (
             <div>
                 {/*<!--<div>-->*/}
                 {/*<!--Type: <span ng-bind="monitorTypes[selectedMonitor.type]"></span>-->*/}
                 {/*<!--</div>-->*/}
                 <div>
-                    Name: {this.props.monitor.name}
+                    Name: {monitor.name}
                 </div>
                 <div>
-                    URL: {this.props.monitor.url}
+                    URL: {monitor.url}
                 </div>
                 <div>
-                    Status:
-                    {this.props.monitor.up === true && 'Up' }
-                    {this.props.monitor.up === false && 'Down' }
-                    {this.props.monitor.up === null && 'Starting' }
+                    Status: {this.getStatusDescription(monitor)}
                 </div>
                 <div>
-                    Monitoring Interval: {this.props.monitorIntervals[this.props.monitor.interval]}
+                    Monitoring Interval: {this.props.monitorIntervals[monitor.interval]}
                 </div>
                 {/*<!--<div>-->*/}
                 {/*<!--Uptime: <strike>Unknown</strike>-->*/}

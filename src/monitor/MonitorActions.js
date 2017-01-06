@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-export const RECEIVE_MONITOR_LIST = 'RECEIVE_MONITOR_LIST';
+export const MONITOR_LIST_RECEIVED = 'MONITOR_LIST_RECEIVED';
 export const MONITOR_SELECTED = 'MONITOR_SELECTED';
 
 let userApiBase = 'http://www.ubermon.com/api/Monitors';
@@ -31,7 +31,7 @@ export function fetchMonitorList(accessToken) {
 
 function receiveMonitorList(monitorList) {
     return {
-        type: RECEIVE_MONITOR_LIST,
+        type: MONITOR_LIST_RECEIVED,
         monitorList: monitorList
     }
 }
