@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch'
 export const MONITOR_LIST_RECEIVED = 'MONITOR_LIST_RECEIVED';
 export const MONITOR_SELECTED = 'MONITOR_SELECTED';
 
-let userApiBase = 'http://ubermon.herokuapp.com/api/Monitors';
+let userApiBase = 'https://ubermon.herokuapp.com/api/Monitors';
 
 export function selectMonitor(monitorId) {
     return monitorSelected(monitorId);

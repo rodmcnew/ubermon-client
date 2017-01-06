@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch'
 
 export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
 
-let userApiBase = 'http://ubermon.herokuapp.com/api/Users';
+let userApiBase = 'https://ubermon.herokuapp.com/api/Users';
 
 export function login(credentials) {
     return dispatch => {
