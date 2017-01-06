@@ -15,6 +15,8 @@ export default class App extends Component {
                     <a href="#/login">login</a>
                     &nbsp;|&nbsp;
                     <a href="#/dashboard">dashboard</a>
+                    &nbsp;|&nbsp;
+                    <a href="http://www.ubermon.com/explorer/">api docs</a>
                 </div>
                 <Provider store={store}>
                     <div>
