@@ -17,7 +17,7 @@ function monitorSelected(monitorId) {
 }
 
 
-export function fetchMonitorList(accessToken) {
+export function fetchMonitorList() {
     return (dispatch, getState) => {
         const state = getState();
         return fetch(userApiBase + '/listMine?access_token=' + state.session.accessToken, {
