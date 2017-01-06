@@ -16,7 +16,7 @@ export default class App extends Component {
                     &nbsp;|&nbsp;
                     <a href="#/dashboard">dashboard</a>
                     &nbsp;|&nbsp;
-                    <a href="http://www.ubermon.com/explorer/">api docs</a>
+                    <a href="http://ubermon.herokuapp.com/explorer/">api docs</a>
                 </div>
                 <Provider store={store}>
                     <div>
