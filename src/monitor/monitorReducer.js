@@ -11,12 +11,10 @@ export default (state = {list: [], pings: {}, events: {}, selectedMonitorId: nul
         case MONITOR_SELECTED:
             return Object.assign({}, state, {selectedMonitorId: action.monitorId});
         case MONITOR_EVENTS_RECEIVED:
-            console.log(action);
             state = Object.assign({}, state);
             state.events[action.monitorId] = action.events;
             return state;
         case MONITOR_PINGS_RECEIVED:
-            console.log(action);
             state = Object.assign({}, state);
             state.pings[action.monitorId] = action.pings;
             return state;
