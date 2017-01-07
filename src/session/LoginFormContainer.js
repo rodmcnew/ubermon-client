@@ -19,7 +19,7 @@ class LoginFormContainer extends Component {
 
     render() {
         return (
-            <div className="panel panel-default">
+            <div className="panel panel-primary">
                 <div className="panel-heading">
                     <h3 className="panel-title">Login</h3>
                 </div>

@@ -34,7 +34,7 @@ export default class LoginForm extends Component {
                     <input onChange={this.handlePasswordChange} type="password" className="form-control"
                            id="pwd"/>
                 </div>
-                <button type="submit" className="btn btn-default">Login</button>
+                <button type="submit" className="btn btn-primary">Login</button>
             </form>
         )
     }

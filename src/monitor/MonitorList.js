@@ -48,15 +48,15 @@ export default class MonitorList extends Component {
                             &nbsp;
                             <span>{monitor.name}</span>
 
-                            <button style={{float: 'right'}}
-                                    className="btn btn-default btn-xs">
-                                <span className="glyphicon glyphicon-trash" title="Delete"/>
-                            </button>
-                            <span style={{float: 'right'}}>&nbsp;</span>
-                            <button style={{float: 'right'}}
-                                    className="btn btn-default btn-xs">
-                                <span className="glyphicon glyphicon-edit" title="Edit"/>
-                            </button>
+                            {/*<button style={{float: 'right'}}*/}
+                                    {/*className="btn btn-default btn-xs">*/}
+                                {/*<span className="glyphicon glyphicon-trash" title="Delete"/>*/}
+                            {/*</button>*/}
+                            {/*<span style={{float: 'right'}}>&nbsp;</span>*/}
+                            {/*<button style={{float: 'right'}}*/}
+                                    {/*className="btn btn-default btn-xs">*/}
+                                {/*<span className="glyphicon glyphicon-edit" title="Edit"/>*/}
+                            {/*</button>*/}
                         </td>
                     </tr>
                 )}

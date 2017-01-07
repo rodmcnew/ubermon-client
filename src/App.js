@@ -10,7 +10,7 @@ const store = configureStore();
 export default class App extends Component {
     render() {
         return (
-            <div className="container-fluid main">
+            <div>
                 <div>
                     <a href="#/login">login</a>
                     &nbsp;|&nbsp;

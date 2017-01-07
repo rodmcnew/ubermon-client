@@ -63,12 +63,12 @@ class MonitorManagerContainer extends Component {
                                 <h3 className="panel-title">My Monitors</h3>
                             </div>
                             <div className="panel-body">
-                                <button className="btn btn-default btn-sm"
-                                        style={{width: '100%'}}>
-                                    <span className="glyphicon glyphicon-plus"/>
-                                    &nbsp;
-                                    Create new monitor
-                                </button>
+                                {/*<button className="btn btn-default btn-sm"*/}
+                                        {/*style={{width: '100%'}}>*/}
+                                    {/*<span className="glyphicon glyphicon-plus"/>*/}
+                                    {/*&nbsp;*/}
+                                    {/*Create new monitor*/}
+                                {/*</button>*/}
                                 {this.props.monitorList.length !== 0 &&
                                 <div>
                                     <br/>
