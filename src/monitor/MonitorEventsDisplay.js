@@ -1,14 +1,14 @@
 import React, {PropTypes, Component} from 'react'
 
 export default class MonitorDetailsDisplay extends Component {
-    getEventTypeDescription(event) {
+    getEventTypeDescription(eventTypeCode) {
         const typeDescriptions = {
             u: 'Up',
             d: 'Down',
             p: 'Paused',
             s: 'Started'
         };
-        return typeDescriptions[event.type];
+        return typeDescriptions[eventTypeCode];
     }
 
     render() {

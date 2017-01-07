@@ -1,11 +1,9 @@
 import {combineReducers} from 'redux'
 import sessionReducer from './session/sessionReducer'
-import monitorListReducer from './monitor/monitorListReducer'
-import selectedMonitorReducer from './monitor/selectedMonitorReducer'
+import monitorReducer from './monitor/monitorReducer'
 const rootReducer = combineReducers({
     session: sessionReducer,
-    monitorList: monitorListReducer,
-    selectedMonitorId: selectedMonitorReducer
+    monitor: monitorReducer,
 });
 
 export default rootReducer
