@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Provider} from 'react-redux'
 import configureStore from './configureStore'
-import {Router, Route, IndexRedirect, hashHistory} from 'react-router'
-import LoginFormContainer from './session/LoginFormContainer'
+import {Router, Route, IndexRoute, hashHistory} from 'react-router'
 import MonitorManagerContainer from './monitor/MonitorManagerContainer'
+import Home from './home/Home'
 import './App.css'
 const store = configureStore();
 
@@ -12,7 +12,7 @@ export default class App extends Component {
         return (
             <div>
                 <div>
-                    <a href="#/login">login</a>
+                    <a href="#/">home</a>
                     &nbsp;|&nbsp;
                     <a href="#/dashboard">dashboard</a>
                     &nbsp;|&nbsp;
@@ -22,8 +22,7 @@ export default class App extends Component {
                     <div>
                         <Router history={hashHistory}>
                             <Route path="/">
-                                <IndexRedirect to="login"/>
-                                <Route path="login" component={LoginFormContainer}/>
+                                <IndexRoute component={Home}/>
                                 <Route path="dashboard" component={MonitorManagerContainer}/>
                             </Route>
                         </Router>

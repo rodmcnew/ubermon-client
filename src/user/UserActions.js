@@ -1,23 +1,23 @@
 import fetch from 'isomorphic-fetch'
 import config from '../config'
 
-export const LOGIN_FULFILLED = 'LOGIN_FULFILLED';
+export const CREATE_FULFILLED = 'CREATE_FULFILLED';
 
-export function login(credentials) {
+export function create(credentials) {
     return dispatch => {
-        return fetch(config.apiBase + '/Users/login', {
+        return fetch(config.apiBase + '/Users', {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {'Content-Type': 'application/json'}
         })
             .then(parseResponse)
-            .then(json => dispatch(loginFulfilled(json)))
+            .then(json => dispatch(createFulfilled(json)))
     }
 }
 
-function loginFulfilled(json) {
+function createFulfilled(json) {
     return {
-        type: LOGIN_FULFILLED,
+        type: CREATE_FULFILLED,
         accessToken: json.id,
         userId: json.userId
     }

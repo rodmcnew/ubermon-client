@@ -39,7 +39,6 @@ export default class MonitorPingChart extends Component {
     }
 
     render() {
-        const events = this.props.events;
         return (
             <Line
                 data={this.formatPingData(this.props.pings)}

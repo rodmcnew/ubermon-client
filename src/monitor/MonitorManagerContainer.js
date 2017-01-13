@@ -36,7 +36,7 @@ class MonitorManagerContainer extends Component {
 
     componentWillMount() {
         if (!this.props.session) {
-            this.props.router.push('/login');
+            this.props.router.push('/');
             return;
         }
         this.props.dispatch(fetchMonitorList());

@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {login} from '../session/SessionActions'
 import LoginForm from './LoginForm'
+import {withRouter} from 'react-router'
 
 class LoginFormContainer extends Component {
-
     constructor(props) {
         super(props);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -12,21 +12,13 @@ class LoginFormContainer extends Component {
 
     handleFormSubmit(credentials) {
         this.props.dispatch(login(credentials))
-            .then(()=> {
+            .then(() => {
                 this.props.router.push('/dashboard')
             });
     }
 
     render() {
-        return (
-            <div className="panel panel-primary">
-                <div className="panel-heading">
-                    <h3 className="panel-title">Login</h3>
-                </div>
-                <div className="panel-body">
-                    <LoginForm onSubmit={this.handleFormSubmit}/>
-                </div>
-            </div>)
+        return (<LoginForm onSubmit={this.handleFormSubmit}/>)
     }
 }
 
@@ -34,4 +26,4 @@ function mapStateToProps(state) {
     return {}
 }
 
-export default connect(mapStateToProps)(LoginFormContainer)
+export default connect(mapStateToProps)(withRouter(LoginFormContainer))
