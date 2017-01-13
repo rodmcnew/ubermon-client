@@ -3,23 +3,24 @@ import React, {PropTypes, Component} from 'react'
 export default class MonitorList extends Component {
     constructor(props) {
         super(props);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.state = {email: null, password: null}
     }
 
     handleEmailChange(event) {
-        this.setState(Object.assign({}, this.state, {email: event.target.value}));
+        this.setState({email: event.target.value});
     }
 
     handlePasswordChange(event) {
-        this.setState(Object.assign({}, this.state, {password: event.target.value}));
+        this.setState({password: event.target.value});
     }
 
-    handleFormSubmit(event) {
-        event.preventDefault();
-        this.props.onSubmit(this.state);
+    handleDeleteClick(monitor) {
+        if (confirm('Delete monitor ' + monitor.name + '?')) {
+            this.props.onDeleteMonitor(monitor.id);
+        }
     }
 
     render() {
@@ -28,7 +29,7 @@ export default class MonitorList extends Component {
                 <tbody>
                 {this.props.monitors.map((monitor, i) =>
                     <tr key={i}
-                        onClick={()=>this.props.onSelectMonitor(monitor.id)}
+                        onClick={() => this.props.onSelectMonitor(monitor.id)}
                         style={{cursor: 'pointer'}}
                         className={monitor.id === this.props.selectedMonitorId ? 'active' : ''}>
                         <td>
@@ -48,15 +49,22 @@ export default class MonitorList extends Component {
                             &nbsp;
                             <span>{monitor.name}</span>
 
-                            {/*<button style={{float: 'right'}}*/}
-                                    {/*className="btn btn-default btn-xs">*/}
-                                {/*<span className="glyphicon glyphicon-trash" title="Delete"/>*/}
-                            {/*</button>*/}
-                            {/*<span style={{float: 'right'}}>&nbsp;</span>*/}
-                            {/*<button style={{float: 'right'}}*/}
-                                    {/*className="btn btn-default btn-xs">*/}
-                                {/*<span className="glyphicon glyphicon-edit" title="Edit"/>*/}
-                            {/*</button>*/}
+                            <button onClick={(event) => {
+                                event.stopPropagation();
+                                this.handleDeleteClick(monitor)
+                            }}
+                                    style={{float: 'right'}}
+                                    className="btn btn-default btn-xs">
+                                <span className="glyphicon glyphicon-trash" title="Delete"/>
+                            </button>
+                            <span style={{float: 'right'}}>&nbsp;</span>
+                            <button onClick={(event) => {
+                                event.stopPropagation();
+                                this.props.onEditMonitor(monitor.id)
+                            }} style={{float: 'right'}}
+                                    className="btn btn-default btn-xs">
+                                <span className="glyphicon glyphicon-edit" title="Edit"/>
+                            </button>
                         </td>
                     </tr>
                 )}
@@ -70,5 +78,7 @@ export default class MonitorList extends Component {
 MonitorList.propTypes = {
     monitors: PropTypes.array.isRequired,
     onSelectMonitor: PropTypes.func.isRequired,
-    selectedMonitorId: PropTypes.number
+    selectedMonitorId: PropTypes.number,
+    onEditMonitor: PropTypes.func.isRequired,
+    onDeleteMonitor: PropTypes.func.isRequired
 };

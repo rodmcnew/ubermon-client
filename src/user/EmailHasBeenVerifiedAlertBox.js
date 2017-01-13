@@ -7,7 +7,7 @@ export default class EmailHasBeenVerifiedAlertBox extends Component {
             <div>
                 {showAlert &&
                 <div className="alert alert-success">
-                    Your email has been verified. You may now login below.
+                    Your email has been verified. You may now login.
                 </div>
                 }
             </div>

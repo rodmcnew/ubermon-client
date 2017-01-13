@@ -1,14 +1,29 @@
 import fetch from 'isomorphic-fetch'
+import config from '../config'
 
 export const MONITOR_LIST_RECEIVED = 'MONITOR_LIST_RECEIVED';
 export const MONITOR_PINGS_RECEIVED = 'MONITOR_PINGS_RECEIVED';
 export const MONITOR_EVENTS_RECEIVED = 'MONITOR_EVENTS_RECEIVED';
 export const MONITOR_SELECTED = 'MONITOR_SELECTED';
+export const DELETE_MONITOR_FULFILLED = 'DELETE_MONITOR_FULFILLED';
 
-let apiBase = 'https://ubermon.herokuapp.com/api/';
-let monitorApiBase = apiBase + 'Monitors';
-let pingApiBase = apiBase + 'MonitorPings';
-let eventApiBase = apiBase + 'MonitorEvents';
+export function deleteMonitor(monitorId) {
+    return (dispatch, getState) => {
+        return fetch(config.apiBase + '/Monitors/'+monitorId, {
+            method: 'DELETE',
+            headers: {'authorization': getState().session.accessToken}
+        })
+            .then(parseResponse)
+            .then(() => dispatch(deleteMonitorFulfilled(monitorId)))
+    }
+}
+
+function deleteMonitorFulfilled(monitorId) {
+    return {
+        type: DELETE_MONITOR_FULFILLED,
+        monitorId: monitorId
+    }
+}
 
 export function selectMonitor(monitorId) {
     return monitorSelected(monitorId);
@@ -24,7 +39,7 @@ function monitorSelected(monitorId) {
 export function fetchMonitorPings(monitorId,) {
     const filter = JSON.stringify({"where": {"monitorId": monitorId}, "order": "date DESC", "limit": 20});
     return (dispatch, getState) => {
-        return fetch(pingApiBase + '?filter=' + encodeURI(filter), {
+        return fetch(config.apiBase + '/MonitorPings?filter=' + encodeURI(filter), {
             method: 'GET',
             headers: {'authorization': getState().session.accessToken}
         })
@@ -45,7 +60,7 @@ function receiveMonitorPings(monitorId, pings) {
 export function fetchMonitorEvents(monitorId,) {
     const filter = JSON.stringify({"where": {"monitorId": monitorId}, "order": "date DESC", "limit": 10});
     return (dispatch, getState) => {
-        return fetch(eventApiBase + '?filter=' + encodeURI(filter), {
+        return fetch(config.apiBase + '/MonitorEvents?filter=' + encodeURI(filter), {
             method: 'GET',
             headers: {'authorization': getState().session.accessToken}
         })
@@ -64,7 +79,7 @@ function receiveMonitorEvents(monitorId, events) {
 
 export function fetchMonitorList() {
     return (dispatch, getState) => {
-        return fetch(monitorApiBase + '/listMine', {
+        return fetch(config.apiBase + '/Monitors/listMine', {
             method: 'GET',
             headers: {'authorization': getState().session.accessToken}
         })

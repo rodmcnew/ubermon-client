@@ -10,11 +10,11 @@ export default class LoginForm extends Component {
     }
 
     handleEmailChange(event) {
-        this.setState(Object.assign({}, this.state, {email: event.target.value}));
+        this.setState({email: event.target.value});
     }
 
     handlePasswordChange(event) {
-        this.setState(Object.assign({}, this.state, {password: event.target.value}));
+        this.setState({password: event.target.value});
     }
 
     handleFormSubmit(event) {
@@ -25,6 +25,9 @@ export default class LoginForm extends Component {
     render() {
         return (
             <form onSubmit={this.handleFormSubmit}>
+                <div className="alert alert-danger ng-binding ng-hide">
+                    @TODO show server and client-side-validation errors here
+                </div>
                 <div className="form-group">
                     <label htmlFor="email">Email address:</label>
                     <input onChange={this.handleEmailChange} type="email" className="form-control" id="email"/>

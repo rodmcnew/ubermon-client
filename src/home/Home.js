@@ -2,21 +2,14 @@ import React, {Component} from 'react'
 import LoginFormContainer from '../session/LoginFormContainer'
 import CreateAccountFormContainer from '../user/CreateAccountFormContainer'
 import EmailHasBeenVerifiedAlertBox from '../user/EmailHasBeenVerifiedAlertBox'
+import PasswordHasBeenResetAlertBox from '../user/PasswordHasBeenResetAlertBox'
 
 export default class Home extends Component {
     render() {
         return (
             <div>
-                {/*<div className="row">*/}
-                {/*<div className="col-sm-12">*/}
-                {/*/!* @TODO move me inside each form *!/*/}
-                {/*<div className="alert alert-danger" ng-bind="error" ng-show="error"/>*/}
-                {/*<div className="alert alert-success" ng-show="emailJustVerified">*/}
-                {/*Your email has been verified. You may now login below.*/}
-                {/*</div>*/}
-                {/*</div>*/}
-                {/*</div>*/}
                 <EmailHasBeenVerifiedAlertBox/>
+                <PasswordHasBeenResetAlertBox/>
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="panel panel-primary">
@@ -50,7 +43,7 @@ export default class Home extends Component {
                             <div className="panel-body">
                                 <LoginFormContainer/>
                                 <br/>
-                                <a href="/reset-password">@TODO Forgot Password</a>
+                                <a href="/#/reset-password">Forgot Password</a>
                             </div>
                         </div>
                     </div>

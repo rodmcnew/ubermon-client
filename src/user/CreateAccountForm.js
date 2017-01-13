@@ -14,15 +14,15 @@ export default class CreateAccountForm extends Component {
     }
 
     handleEmailChange(event) {
-        this.setState(Object.assign({}, this.state, {email: event.target.value}));
+        this.setState({email: event.target.value});
     }
 
     handlePasswordChange(event) {
-        this.setState(Object.assign({}, this.state, {password: event.target.value}));
+        this.setState({password: event.target.value});
     }
 
     handleCaptchaChange = function (response) {
-        this.setState(Object.assign({}, this.state, {clientCaptchaRes: response}));
+        this.setState({clientCaptchaRes: response});
     };
 
     handleFormSubmit(event) {
@@ -35,8 +35,9 @@ export default class CreateAccountForm extends Component {
             <div>
                 {!this.props.verificationEmailSent &&
                 <form onSubmit={this.handleFormSubmit}>
-                    <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded" async
-                            defer></script>
+                    <div className="alert alert-danger ng-binding ng-hide">
+                        @TODO show server and client-side-validation errors here
+                    </div>
                     <div className="form-group">
                         <label htmlFor="email">Email address:</label>
                         <input onChange={this.handleEmailChange} type="email" className="form-control"
@@ -60,6 +61,7 @@ export default class CreateAccountForm extends Component {
                         {/*on-expire="captcha.cbExpiration()"/>*/}
                     </div>
                     <button type="submit" className="btn btn-primary">Create a Free Account</button>
+                    <div>@TODO add client side validation of this form</div>
                     <div>@TODO move ?emailJustVerified redirect to after the # (do on server)</div>
                 </form>
                 }

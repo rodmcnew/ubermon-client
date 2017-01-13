@@ -1,12 +1,19 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchMonitorList, selectMonitor, fetchMonitorPings, fetchMonitorEvents} from './MonitorActions'
+import {fetchMonitorList, selectMonitor, fetchMonitorPings, fetchMonitorEvents, deleteMonitor} from './MonitorActions'
 import MonitorList from './MonitorList'
 import MonitorDetailsDisplay from './MonitorDetailsDisplay'
+import CreateMonitorForm from './CreateMonitorForm'
+import EditMonitorForm from './EditMonitorForm'
+
 class MonitorManagerContainer extends Component {
     constructor(props) {
         super(props);
         this.handleSelectMonitorClick = this.handleSelectMonitorClick.bind(this);
+        this.handleShowCreateNewMonitorFormClick = this.handleShowCreateNewMonitorFormClick.bind(this);
+        this.handleMonitorEditClick = this.handleMonitorEditClick.bind(this);
+        this.handleDeleteMonitorConfirm = this.handleDeleteMonitorConfirm.bind(this);
+        this.state = {mode: 'display'};
         this.ubermonConfig = { //@TODO move out
             monitorTypes: {
                 'h': 'HTTP(s)',
@@ -43,17 +50,38 @@ class MonitorManagerContainer extends Component {
     }
 
     handleSelectMonitorClick(monitorId) {
-        this.selectMonitor(monitorId)
+        this.selectMonitor(monitorId);
+        this.setState({mode: 'display'});
+    }
+
+    handleShowCreateNewMonitorFormClick() {
+        this.setState({mode: 'new'});
+    }
+
+    handleMonitorEditClick(monitorId) {
+        this.selectMonitor(monitorId);
+        this.setState({mode: 'edit'});
     }
 
     selectMonitor(monitorId) {
-        const {dispatch} = this.props;
+        const dispatch = this.props.dispatch;
         dispatch(selectMonitor(monitorId));
         dispatch(fetchMonitorEvents(monitorId));
         dispatch(fetchMonitorPings(monitorId));
     }
 
+
+    handleDeleteMonitorConfirm(monitorId) {
+        const dispatch = this.props.dispatch;
+        dispatch(deleteMonitor(monitorId))
+            .then(() => dispatch(fetchMonitorList()))
+    }
+
     render() {
+        let view = this.state.mode;
+        if (this.props.monitorList.length === 0) {
+            view = 'new';
+        }
         return (
             <div>
                 <div className="row">
@@ -63,26 +91,41 @@ class MonitorManagerContainer extends Component {
                                 <h3 className="panel-title">My Monitors</h3>
                             </div>
                             <div className="panel-body">
-                                {/*<button className="btn btn-default btn-sm"*/}
-                                        {/*style={{width: '100%'}}>*/}
-                                    {/*<span className="glyphicon glyphicon-plus"/>*/}
-                                    {/*&nbsp;*/}
-                                    {/*Create new monitor*/}
-                                {/*</button>*/}
+                                <button onClick={this.handleShowCreateNewMonitorFormClick}
+                                        className="btn btn-default btn-sm"
+                                        style={{width: '100%'}}>
+                                    <span className="glyphicon glyphicon-plus"/>
+                                    &nbsp;
+                                    Create new monitor
+                                </button>
                                 {this.props.monitorList.length !== 0 &&
                                 <div>
                                     <br/>
                                     <MonitorList
                                         monitors={this.props.monitorList}
                                         selectedMonitorId={this.props.selectedMonitorId}
-                                        onSelectMonitor={this.handleSelectMonitorClick}/>
+                                        onSelectMonitor={this.handleSelectMonitorClick}
+                                        onEditMonitor={this.handleMonitorEditClick}
+                                        onDeleteMonitor={this.handleDeleteMonitorConfirm}/>
                                 </div>
                                 }
 
                             </div>
                         </div>
                     </div>
-                    {this.props.selectedMonitorId !== null &&
+                    {view === 'new' &&
+                    <div className="col-sm-8">
+                        <div className="panel panel-primary">
+                            <div className="panel-heading">
+                                <h3 className="panel-title">Create New Monitor</h3>
+                            </div>
+                            <div className="panel-body">
+                                <CreateMonitorForm/>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    {view === 'display' &&
                     <div className="col-sm-8">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
@@ -98,39 +141,24 @@ class MonitorManagerContainer extends Component {
                         </div>
                     </div>
                     }
-                    {this.props.monitorList.length === 0 &&
+                    {view === 'edit' &&
                     <div className="col-sm-8">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
-                                <h3 className="panel-title">Welcome to Ubermon!</h3>
+                                <h3 className="panel-title">Edit Monitor</h3>
                             </div>
                             <div className="panel-body">
-                                <p>
-                                    Click "Create new monitor" on the left to get started.
-                                </p>
+                                <EditMonitorForm/>
+                                {/*<MonitorDetailsDisplay*/}
+                                {/*monitor={this.props.selectedMonitor}*/}
+                                {/*monitorIntervals={this.ubermonConfig.monitorIntervals}*/}
+                                {/*events={this.props.selectedMonitorEvents}*/}
+                                {/*pings={this.props.selectedMonitorPings}/>*/}
                             </div>
                         </div>
                     </div>
                     }
                 </div>
-
-                {/*//*/}
-                {/*//*/}
-                {/*<ubermon-create-monitor-dialog new-monitor="newMonitor"*/}
-                {/*//                                watch-for-pending-update="watchForPendingUpdate"*/}
-                {/*//                                monitor-intervals="monitorIntervals"*/}
-                {/*//                                select-monitor="selectMonitor"*/}
-                {/*//                                monitors="monitors"*/}
-                {/*//                                contacts="contacts">*/}
-                {/*// </ubermon-create-monitor-dialog>*/}
-                {/*//*/}
-                {/*// <ubermon-edit-monitor-dialog editable-monitor="editableMonitor"*/}
-                {/*//                              watch-for-pending-update="watchForPendingUpdate"*/}
-                {/*//                              monitor-intervals="monitorIntervals"*/}
-                {/*//                              contacts="contacts">*/}
-                {/*// </ubermon-edit-monitor-dialog>*/}
-                {/*//*/}
-
             </div>
         )
     }

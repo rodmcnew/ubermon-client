@@ -3,6 +3,7 @@ import {Provider} from 'react-redux'
 import configureStore from './configureStore'
 import {Router, Route, IndexRoute, hashHistory} from 'react-router'
 import MonitorManagerContainer from './monitor/MonitorManagerContainer'
+import ResetPasswordContainer from './user/ResetPasswordContainer'
 import Home from './home/Home'
 import './App.css'
 const store = configureStore();
@@ -24,6 +25,7 @@ export default class App extends Component {
                             <Route path="/">
                                 <IndexRoute component={Home}/>
                                 <Route path="dashboard" component={MonitorManagerContainer}/>
+                                <Route path="reset-password" component={ResetPasswordContainer}/>
                             </Route>
                         </Router>
                     </div>
