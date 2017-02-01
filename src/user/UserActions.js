@@ -1,26 +1,56 @@
 import fetch from 'isomorphic-fetch'
 import config from '../config'
 
+export const CREATE_STARTED = 'CREATE_STARTED';
 export const CREATE_FULFILLED = 'CREATE_FULFILLED';
+export const CREATE_FAILED = 'CREATE_FAILED';
 export const RESET_PASSWORD_FULFILLED = 'RESET_PASSWORD_FULFILLED';
 
 export function create(credentials) {
     return dispatch => {
+        dispatch(createStarted());
         return fetch(config.apiBase + '/Users', {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: {'Content-Type': 'application/json'}
+        }).then(response => {
+            response.json().then((body) => {
+                switch (response.status) {
+                    case 200:
+                        dispatch(createFulfilled(body));
+                        break;
+                    case 422:
+                    case 400:
+                        dispatch(createFailed(body.error.message));
+                        break;
+                    default:
+                        throw new Error('Unexpected status code received from server');
+                }
+            })
+        }).catch(reason => {
+            dispatch(createFailed(
+                'Could not communicate with the server. Check your internet connection and try again.'
+            ));
+            throw reason;
         })
-            .then(parseResponse)
-            .then(json => dispatch(createFulfilled(json)))
     }
 }
 
+function createStarted() {
+    return {
+        type: CREATE_STARTED,
+    }
+}
 function createFulfilled(json) {
     return {
         type: CREATE_FULFILLED,
-        accessToken: json.id,
-        userId: json.userId
+        userId: json.id
+    }
+}
+function createFailed(message) {
+    return {
+        type: CREATE_FAILED,
+        message: message
     }
 }
 

@@ -125,7 +125,7 @@ class MonitorManagerContainer extends Component {
                         </div>
                     </div>
                     }
-                    {view === 'display' &&
+                    {view === 'display' && this.props.selectedMonitor &&
                     <div className="col-sm-8">
                         <div className="panel panel-primary">
                             <div className="panel-heading">

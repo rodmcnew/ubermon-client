@@ -11,19 +11,18 @@ class LoginFormContainer extends Component {
     }
 
     handleFormSubmit(credentials) {
-        this.props.dispatch(login(credentials))
-            .then(() => {
-                this.props.router.push('/dashboard')
-            });
+        this.props.dispatch(login(credentials, () => {
+            this.props.router.push('/dashboard')
+        }))
     }
 
     render() {
-        return (<LoginForm onSubmit={this.handleFormSubmit}/>)
+        return (<LoginForm onSubmit={this.handleFormSubmit} errorMessage={this.props.errorMessage}/>)
     }
 }
 
 function mapStateToProps(state) {
-    return {}
+    return {errorMessage: state.loginForm.errorMessage}
 }
 
 export default connect(mapStateToProps)(withRouter(LoginFormContainer))

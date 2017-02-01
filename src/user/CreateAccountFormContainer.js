@@ -9,24 +9,21 @@ class CreateAccountFormContainer extends Component {
     constructor(props) {
         super(props);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.state = {verificationEmailSent: false};
     }
 
     handleFormSubmit(credentials) {
-        this.props.dispatch(create(credentials))
-            .then(() => {
-                this.setState({verificationEmailSent: true});
-            });
+        this.props.dispatch(create(credentials));
     }
 
     render() {
         return (<CreateAccountForm onSubmit={this.handleFormSubmit}
-                                   verificationEmailSent={this.state.verificationEmailSent}/>)
+                                   succeeded={this.props.succeeded}
+                                   errorMessage={this.props.errorMessage}/>)
     }
 }
 
 function mapStateToProps(state) {
-    return {}
+    return {errorMessage: state.createAccountForm.errorMessage, succeeded: state.createAccountForm.succeeded}
 }
 
 export default connect(mapStateToProps)(withRouter(CreateAccountFormContainer))

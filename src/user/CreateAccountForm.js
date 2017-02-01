@@ -33,11 +33,13 @@ export default class CreateAccountForm extends Component {
     render() {
         return (
             <div>
-                {!this.props.verificationEmailSent &&
+                {!this.props.succeeded &&
                 <form onSubmit={this.handleFormSubmit}>
+                    {this.props.errorMessage &&
                     <div className="alert alert-danger ng-binding ng-hide">
-                        @TODO show server and client-side-validation errors here
+                        {this.props.errorMessage}
                     </div>
+                    }
                     <div className="form-group">
                         <label htmlFor="email">Email address:</label>
                         <input onChange={this.handleEmailChange} type="email" className="form-control"
@@ -65,7 +67,7 @@ export default class CreateAccountForm extends Component {
                     <div>@TODO move ?emailJustVerified redirect to after the # (do on server)</div>
                 </form>
                 }
-                {this.props.verificationEmailSent &&
+                {this.props.succeeded &&
                 <div className="alert alert-success">
                     We sent you a verification email. Please check your email and click the link inside
                     to
@@ -80,5 +82,6 @@ export default class CreateAccountForm extends Component {
 
 CreateAccountForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    verificationEmailSent: PropTypes.bool.isRequired
+    succeeded: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string
 };

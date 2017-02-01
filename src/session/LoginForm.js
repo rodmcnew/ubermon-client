@@ -25,9 +25,11 @@ export default class LoginForm extends Component {
     render() {
         return (
             <form onSubmit={this.handleFormSubmit}>
+                {this.props.errorMessage &&
                 <div className="alert alert-danger ng-binding ng-hide">
-                    @TODO show server and client-side-validation errors here
+                    {this.props.errorMessage}
                 </div>
+                }
                 <div className="form-group">
                     <label htmlFor="email">Email address:</label>
                     <input onChange={this.handleEmailChange} type="email" className="form-control" id="email"/>
@@ -41,9 +43,9 @@ export default class LoginForm extends Component {
             </form>
         )
     }
-
 }
 
 LoginForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string
 };
