@@ -63,8 +63,6 @@ export default class CreateAccountForm extends Component {
                         {/*on-expire="captcha.cbExpiration()"/>*/}
                     </div>
                     <button type="submit" className="btn btn-primary">Create a Free Account</button>
-                    <div>@TODO add client side validation of this form</div>
-                    <div>@TODO move ?emailJustVerified redirect to after the # (do on server)</div>
                 </form>
                 }
                 {this.props.succeeded &&
