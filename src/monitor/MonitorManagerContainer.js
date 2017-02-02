@@ -23,7 +23,9 @@ class MonitorManagerContainer extends Component {
         this.handleDeleteMonitorConfirm = this.handleDeleteMonitorConfirm.bind(this);
         this.handleCreateMonitorSubmit = this.handleCreateMonitorSubmit.bind(this);
         this.handleMonitorEditSubmit = this.handleMonitorEditSubmit.bind(this);
-        this.state = {mode: 'display'};
+        this.fetchMostRecentData = this.fetchMostRecentData.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.state = {mode: 'display', newMonitor: this.getNewMonitor()};
         this.ubermonConfig = { //@TODO move out
             monitorTypes: {
                 'h': 'HTTP(s)',
@@ -60,6 +62,19 @@ class MonitorManagerContainer extends Component {
         this.props.dispatch(fetchContacts());
     }
 
+    componentDidMount() {
+        setInterval(this.fetchMostRecentData, 5000)
+    }
+
+    fetchMostRecentData() {
+        const dispatch = this.props.dispatch;
+        this.props.dispatch(fetchMonitorList());
+        if (this.props.selectedMonitorId) {
+            dispatch(fetchMonitorEvents(this.props.selectedMonitorId));
+            dispatch(fetchMonitorPings(this.props.selectedMonitorId));
+        }
+    }
+
     handleSelectMonitorClick(monitorId) {
         this.selectMonitor(monitorId);
         this.setState({mode: 'display'});
@@ -81,7 +96,6 @@ class MonitorManagerContainer extends Component {
         dispatch(fetchMonitorPings(monitorId));
     }
 
-
     handleDeleteMonitorConfirm(monitorId) {
         const dispatch = this.props.dispatch;
         dispatch(deleteMonitor(monitorId))
@@ -93,7 +107,12 @@ class MonitorManagerContainer extends Component {
         let self = this;
         dispatch(createMonitor(monitorData, () => {
             dispatch(fetchMonitorList()).then(() => {
-                self.setState({mode: 'display'});
+                self.setState({mode: 'display', newMonitor: this.getNewMonitor()});
+                setTimeout(self.fetchMostRecentData, 1);
+                setTimeout(self.fetchMostRecentData, 2);
+                setTimeout(self.fetchMostRecentData, 3);
+                setTimeout(self.fetchMostRecentData, 4);
+                setTimeout(self.fetchMostRecentData, 5);
             })
         }))
     }
@@ -164,7 +183,7 @@ class MonitorManagerContainer extends Component {
                                 <MonitorDetailsForm onSubmit={this.handleCreateMonitorSubmit}
                                                     errorMessage={this.props.createMonitorFormErrorMessage}
                                                     contacts={this.props.contacts}
-                                                    monitor={this.getNewMonitor()}/>
+                                                    monitor={this.state.newMonitor}/>
                             </div>
                         </div>
                     </div>
@@ -221,4 +240,6 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(MonitorManagerContainer)
+export default connect(mapStateToProps)(
+    MonitorManagerContainer
+)

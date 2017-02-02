@@ -14,7 +14,7 @@ export default class MonitorDetailsForm extends Component {
     componentWillReceiveProps(props) {
         // If we are switching to a new monitor load it into the form, otherwise
         // don't so we don't clear invalid form data
-        if(!this.state.id || props.monitor.id !== this.state.id){
+        if(props.monitor.id !== this.state.id){
             this.setState(props.monitor)
         }
     }
