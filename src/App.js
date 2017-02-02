@@ -19,6 +19,7 @@ export default class App extends Component {
                     <div className="row">
                         <div className="col-sm-6">
                             <h2 style={{display: 'inline'}}><a href="/">Ubermon</a></h2>
+                            <span>&nbsp;</span>
                             Website downtime alerts. Free, simple, and easy.
                         </div>
                         <div className="col-sm-6">
