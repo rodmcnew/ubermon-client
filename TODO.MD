@@ -3,10 +3,10 @@ Must:
 Should:
 Make contact us form
 allow contacts to be CRUD'd and uncomment "Email alerts (Email to SMS is allowed)"
-Get a logo
 Fix making a call to change password to null crashes the node app
 
 Could:
+Get a logo
 Actions files should start with lower case. they are not classes
 show a more friendly message than "login failed"
 focus on first form field when creating new monitor
