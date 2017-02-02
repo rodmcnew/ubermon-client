@@ -1,4 +1,4 @@
-import {LOGIN_FULFILLED} from './SessionActions'
+import {LOGIN_FULFILLED} from './sessionActions'
 export default (state = null, action) => {
     switch (action.type) {
         case 'LOAD_STORED_STATE':

@@ -1,4 +1,4 @@
-import {RESET_PASSWORD_FAILED, RESET_PASSWORD_STARTED, RESET_PASSWORD_FULFILLED} from './UserActions'
+import {RESET_PASSWORD_FAILED, RESET_PASSWORD_STARTED, RESET_PASSWORD_FULFILLED} from './userActions'
 export default (state = {errorMessage: null, succeeded: false}, action) => {
     switch (action.type) {
         case RESET_PASSWORD_STARTED:

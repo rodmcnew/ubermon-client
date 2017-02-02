@@ -1,4 +1,4 @@
-import {LOGIN_FAILED, LOGIN_STARTED} from './SessionActions'
+import {LOGIN_FAILED, LOGIN_STARTED} from './sessionActions'
 export default (state = {errorMessage: null}, action) => {
     switch (action.type) {
         case LOGIN_STARTED:

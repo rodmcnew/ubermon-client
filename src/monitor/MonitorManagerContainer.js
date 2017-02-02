@@ -8,7 +8,7 @@ import {
     deleteMonitor,
     createMonitor,
     updateMonitor
-} from './MonitorActions'
+} from './monitorActions'
 import {fetchContacts} from '../contact/contactActions'
 import MonitorList from './MonitorList'
 import MonitorDetailsDisplay from './MonitorDetailsDisplay'

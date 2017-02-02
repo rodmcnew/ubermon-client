@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {resetPassword} from '../user/UserActions'
+import {resetPassword} from '../user/userActions'
 import ResetPasswordForm from './ResetPasswordForm'
 import {withRouter} from 'react-router'
 

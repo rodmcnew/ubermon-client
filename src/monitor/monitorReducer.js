@@ -4,7 +4,7 @@ import {
     MONITOR_PINGS_RECEIVED,
     MONITOR_EVENTS_RECEIVED,
     CREATE_MONITOR_FULFILLED
-} from './MonitorActions'
+} from './monitorActions'
 export default (state = {list: [], pings: {}, events: {}, selectedMonitorId: null}, action) => {
     switch (action.type) {
         case MONITOR_LIST_RECEIVED:

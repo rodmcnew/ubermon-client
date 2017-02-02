@@ -1,4 +1,4 @@
-import {CHANGE_PASSWORD_FAILED, CHANGE_PASSWORD_STARTED, CHANGE_PASSWORD_FULFILLED} from './UserActions'
+import {CHANGE_PASSWORD_FAILED, CHANGE_PASSWORD_STARTED, CHANGE_PASSWORD_FULFILLED} from './userActions'
 export default (state = {errorMessage: null, succeeded: false}, action) => {
     switch (action.type) {
         case CHANGE_PASSWORD_STARTED:

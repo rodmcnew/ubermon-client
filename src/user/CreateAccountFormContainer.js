@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {create} from './UserActions'
+import {create} from './userActions'
 import CreateAccountForm from './CreateAccountForm'
 import {withRouter} from 'react-router'
 

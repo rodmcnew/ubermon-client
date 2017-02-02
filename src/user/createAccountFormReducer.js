@@ -1,4 +1,4 @@
-import {CREATE_FAILED, CREATE_STARTED, CREATE_FULFILLED} from './UserActions'
+import {CREATE_FAILED, CREATE_STARTED, CREATE_FULFILLED} from './userActions'
 export default (state = {errorMessage: null, succeeded: false}, action) => {
     switch (action.type) {
         case CREATE_STARTED:

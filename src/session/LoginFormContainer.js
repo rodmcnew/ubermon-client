@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {login} from '../session/SessionActions'
+import {login} from '../session/sessionActions'
 import LoginForm from './LoginForm'
 import {withRouter} from 'react-router'
 
