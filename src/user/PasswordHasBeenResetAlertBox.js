@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 
 export default class PasswordHasBeenResetAlertBox extends Component {
     render() {
-        let showAlert = true;//window.location.href.indexOf('emailJustVerified') !== -1;
+        // let showAlert = true;//window.location.href.indexOf('emailJustVerified') !== -1;
         return (
             <div>
                 {/*{showAlert &&*/}

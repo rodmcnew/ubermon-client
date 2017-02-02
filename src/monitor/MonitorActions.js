@@ -6,10 +6,32 @@ export const MONITOR_PINGS_RECEIVED = 'MONITOR_PINGS_RECEIVED';
 export const MONITOR_EVENTS_RECEIVED = 'MONITOR_EVENTS_RECEIVED';
 export const MONITOR_SELECTED = 'MONITOR_SELECTED';
 export const DELETE_MONITOR_FULFILLED = 'DELETE_MONITOR_FULFILLED';
+export const CREATE_MONITOR_FULFILLED = 'CREATE_MONITOR_FULFILLED';
 
+export function createMonitor(monitor, onSuccess) {
+    return (dispatch, getState) => {
+        return fetch(config.apiBase + '/Monitors/', {
+            method: 'POST',
+            body: JSON.stringify(monitor),
+            headers: {'Content-Type': 'application/json', 'authorization': getState().session.accessToken}
+        })
+            .then(parseResponse)
+            .then((responseBody) => {
+                onSuccess();
+                return dispatch(createMonitorFulfilled(responseBody))
+            })
+    }
+}
+
+function createMonitorFulfilled(monitor) {
+    return {
+        type: CREATE_MONITOR_FULFILLED,
+        monitor: monitor
+    }
+}
 export function deleteMonitor(monitorId) {
     return (dispatch, getState) => {
-        return fetch(config.apiBase + '/Monitors/'+monitorId, {
+        return fetch(config.apiBase + '/Monitors/' + monitorId, {
             method: 'DELETE',
             headers: {'authorization': getState().session.accessToken}
         })

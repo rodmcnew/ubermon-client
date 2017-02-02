@@ -2,7 +2,8 @@ import {
     MONITOR_LIST_RECEIVED,
     MONITOR_SELECTED,
     MONITOR_PINGS_RECEIVED,
-    MONITOR_EVENTS_RECEIVED
+    MONITOR_EVENTS_RECEIVED,
+    CREATE_MONITOR_FULFILLED
 } from './MonitorActions'
 export default (state = {list: [], pings: {}, events: {}, selectedMonitorId: null}, action) => {
     switch (action.type) {
@@ -18,6 +19,8 @@ export default (state = {list: [], pings: {}, events: {}, selectedMonitorId: nul
             state = Object.assign({}, state);
             state.pings[action.monitorId] = action.pings;
             return state;
+        case CREATE_MONITOR_FULFILLED:
+            return Object.assign({}, state, {selectedMonitorId: action.monitor.id});
         default:
             return state
     }

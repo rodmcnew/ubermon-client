@@ -72,19 +72,6 @@ function resetPasswordFulfilled() {
     }
 }
 
-//@TODO do not alert from the actions file. Maybe use axios instead of fetch?
-function parseResponse(response) {
-    switch (response.status) {
-        case 401:
-            alert('Unauthorized. Please ensure you are logged in.');
-            break;
-        case 200:
-            return response.json();
-        default:
-            alert('Could not communicate with the server. Check your internet connection');
-    }
-}
-
 function parseJsonlessResponse(response) {
     switch (response.status) {
         case 401:

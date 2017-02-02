@@ -1,6 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchMonitorList, selectMonitor, fetchMonitorPings, fetchMonitorEvents, deleteMonitor} from './MonitorActions'
+import {
+    fetchMonitorList,
+    selectMonitor,
+    fetchMonitorPings,
+    fetchMonitorEvents,
+    deleteMonitor,
+    createMonitor
+} from './MonitorActions'
 import MonitorList from './MonitorList'
 import MonitorDetailsDisplay from './MonitorDetailsDisplay'
 import CreateMonitorForm from './CreateMonitorForm'
@@ -13,6 +20,7 @@ class MonitorManagerContainer extends Component {
         this.handleShowCreateNewMonitorFormClick = this.handleShowCreateNewMonitorFormClick.bind(this);
         this.handleMonitorEditClick = this.handleMonitorEditClick.bind(this);
         this.handleDeleteMonitorConfirm = this.handleDeleteMonitorConfirm.bind(this);
+        this.handleCreateMonitorSubmit = this.handleCreateMonitorSubmit.bind(this);
         this.state = {mode: 'display'};
         this.ubermonConfig = { //@TODO move out
             monitorTypes: {
@@ -77,6 +85,16 @@ class MonitorManagerContainer extends Component {
             .then(() => dispatch(fetchMonitorList()))
     }
 
+    handleCreateMonitorSubmit(monitorData) {
+        const dispatch = this.props.dispatch;
+        let self = this;
+        dispatch(createMonitor(monitorData, () => {
+            dispatch(fetchMonitorList()).then(()=>{
+                self.setState({mode: 'display'});
+            })
+        }))
+    }
+
     render() {
         let view = this.state.mode;
         if (this.props.monitorList.length === 0) {
@@ -120,7 +138,7 @@ class MonitorManagerContainer extends Component {
                                 <h3 className="panel-title">Create New Monitor</h3>
                             </div>
                             <div className="panel-body">
-                                <CreateMonitorForm/>
+                                <CreateMonitorForm onSubmit={this.handleCreateMonitorSubmit}/>
                             </div>
                         </div>
                     </div>
