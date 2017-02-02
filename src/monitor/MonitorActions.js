@@ -6,29 +6,59 @@ export const MONITOR_PINGS_RECEIVED = 'MONITOR_PINGS_RECEIVED';
 export const MONITOR_EVENTS_RECEIVED = 'MONITOR_EVENTS_RECEIVED';
 export const MONITOR_SELECTED = 'MONITOR_SELECTED';
 export const DELETE_MONITOR_FULFILLED = 'DELETE_MONITOR_FULFILLED';
+export const CREATE_MONITOR_STARTED = 'CREATE_MONITOR_STARTED';
 export const CREATE_MONITOR_FULFILLED = 'CREATE_MONITOR_FULFILLED';
+export const CREATE_MONITOR_FAILED = 'CREATE_MONITOR_FAILED';
 
 export function createMonitor(monitor, onSuccess) {
     return (dispatch, getState) => {
+        dispatch(createMonitorStarted());
         return fetch(config.apiBase + '/Monitors/', {
             method: 'POST',
             body: JSON.stringify(monitor),
             headers: {'Content-Type': 'application/json', 'authorization': getState().session.accessToken}
-        })
-            .then(parseResponse)
-            .then((responseBody) => {
-                onSuccess();
-                return dispatch(createMonitorFulfilled(responseBody))
+        }).then(response => {
+            response.json().then((body) => {
+                switch (response.status) {
+                    case 200:
+                        dispatch(createMonitorFulfilled(body));
+                        onSuccess();
+                        break;
+                    case 422:
+                    case 400:
+                        dispatch(createMonitorFailed(body.error.message));
+                        break;
+                    default:
+                        throw new Error('Unexpected status code received from server');
+                }
             })
+        }).catch(reason => {
+            dispatch(createMonitorFailed(
+                'Could not communicate with the server. Check your internet connection and try again.'
+            ));
+            throw reason;
+        })
     }
 }
 
+function createMonitorStarted() {
+    return {
+        type: CREATE_MONITOR_STARTED,
+    }
+}
 function createMonitorFulfilled(monitor) {
     return {
         type: CREATE_MONITOR_FULFILLED,
         monitor: monitor
     }
 }
+function createMonitorFailed(message) {
+    return {
+        type: CREATE_MONITOR_FAILED,
+        message: message
+    }
+}
+
 export function deleteMonitor(monitorId) {
     return (dispatch, getState) => {
         return fetch(config.apiBase + '/Monitors/' + monitorId, {

@@ -32,9 +32,11 @@ export default class CreateMonitorForm extends Component {
     render() {
         return (
             <form role="form" onSubmit={this.handleFormSubmit}>
-                {/*<div className="alert alert-danger">*/}
-                    {/*@TODO Implement this form functionality*/}
-                {/*</div>*/}
+                {this.props.errorMessage &&
+                <div className="alert alert-danger">
+                    {this.props.errorMessage}
+                </div>
+                }
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <input onChange={this.handleNameChange} type="text"
@@ -78,4 +80,5 @@ export default class CreateMonitorForm extends Component {
 
 CreateMonitorForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    errorMessage: PropTypes.string
 };

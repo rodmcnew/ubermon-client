@@ -89,7 +89,7 @@ class MonitorManagerContainer extends Component {
         const dispatch = this.props.dispatch;
         let self = this;
         dispatch(createMonitor(monitorData, () => {
-            dispatch(fetchMonitorList()).then(()=>{
+            dispatch(fetchMonitorList()).then(() => {
                 self.setState({mode: 'display'});
             })
         }))
@@ -138,7 +138,8 @@ class MonitorManagerContainer extends Component {
                                 <h3 className="panel-title">Create New Monitor</h3>
                             </div>
                             <div className="panel-body">
-                                <CreateMonitorForm onSubmit={this.handleCreateMonitorSubmit}/>
+                                <CreateMonitorForm onSubmit={this.handleCreateMonitorSubmit}
+                                                   errorMessage={this.props.createMonitorFormErrorMessage}/>
                             </div>
                         </div>
                     </div>
@@ -190,7 +191,8 @@ function mapStateToProps(state) {
         selectedMonitorId: monitorId,
         selectedMonitor: state.monitor.list.find((monitor) => monitor.id === monitorId),
         selectedMonitorPings: state.monitor.pings[monitorId] || [],
-        selectedMonitorEvents: state.monitor.events[monitorId] || []
+        selectedMonitorEvents: state.monitor.events[monitorId] || [],
+        createMonitorFormErrorMessage: state.createMonitorForm.errorMessage
     }
 }
 
