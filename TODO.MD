@@ -1,16 +1,20 @@
+Must:
 is app crashing when giving bad domains like http://rodmcnew4.com
-
-
-show the message: "Your password has been changed. You may now login."
-show a more friendly message than "login failed"
-signup - captcha become "invalid" and you get stuck after second attempt
-@TODO move ?emailJustVerified redirect to after the # (do on server)
-add contacts to create monitor form
-add server error message handling to create monitor form
-add https://ubermon.herokuapp.com/explorer/ to third party monitoring
-refresh monitor detail with setinterval type thing
-allow monitors to be edited
-refreash many times in a row imedietly after creation
 https://rodmcnew.com show starting forever (SSL)
+allow monitors to be edited
+
+Should:
+signup - captcha becomes "invalid" and you get stuck after second attempt
+Get reset password working and show the message: "Your password has been changed. You may now login."
 Make contact us form
-Get reset password working
+add a test of the API server to third party up-time monitoring
+refresh monitor detail with setinterval type thing
+refreash many times in a row imedietly after creation
+allow contacts to be CRUD'd
+
+Could:
+Actions files should start with lower case. they are not classes
+show a more friendly message than "login failed"
+
+Would:
+@TODO move ?emailJustVerified redirect to after the # (do on server) - this would not change functionality, would just make URL prettier

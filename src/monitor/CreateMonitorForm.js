@@ -7,7 +7,22 @@ export default class CreateMonitorForm extends Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleUrlChange = this.handleUrlChange.bind(this);
         this.handleIntervalChange = this.handleIntervalChange.bind(this);
+        this.handleContactCheckChange = this.handleContactCheckChange.bind(this);
         this.state = {name: null, url: null, interval: 5, contactIds: [], type: 'h'}
+    }
+
+    handleContactCheckChange(checked, contactId) {
+        let newContactIdList = this.state.contactIds.slice();
+        if (checked) {
+            //If they checked the box, add the contactId to the list for this monitor
+            newContactIdList.push(contactId);
+        } else {
+            //If they unchecked the box, remove the contactId from the list for this monitor
+            newContactIdList = newContactIdList.filter(function (currentContactId) {
+                return currentContactId !== contactId;
+            })
+        }
+        this.setState({contactIds: newContactIdList});
     }
 
     handleNameChange(event) {
@@ -62,15 +77,19 @@ export default class CreateMonitorForm extends Component {
                     </select>
                 </div>
 
-                {/*<div className="form-group">*/}
-                {/*<label>Contacts to Alert</label>*/}
-                {/*<div className="ng-scope">*/}
-                {/*<label style={{fontWeight: 'normal'}}>*/}
-                {/*<input type="checkbox" value="1"/>&nbsp;*/}
-                {/*<span className="ng-binding">rodmcnew@gmail.com</span>*/}
-                {/*</label>*/}
-                {/*</div>*/}
-                {/*</div>*/}
+                <div className="form-group">
+                    <label>Contacts to Alert</label>
+                    {this.props.contacts.map((contact, i) =>
+                        <div key={i}>
+                            <label style={{fontWeight: 'normal'}}>
+                                <input type="checkbox" value="1"
+                                       onChange={(event) => this.handleContactCheckChange(event.target.checked, contact.id)}/>
+                                <span>&nbsp;</span>
+                                <span className="ng-binding">{contact.email}</span>
+                            </label>
+                        </div>
+                    )}
+                </div>
 
                 <button type="submit" className="btn btn-primary pull-right">Save</button>
             </form >
@@ -80,5 +99,6 @@ export default class CreateMonitorForm extends Component {
 
 CreateMonitorForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    contacts: PropTypes.array.isRequired
 };

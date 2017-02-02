@@ -8,6 +8,7 @@ import {
     deleteMonitor,
     createMonitor
 } from './MonitorActions'
+import {fetchContacts} from '../contact/contactActions'
 import MonitorList from './MonitorList'
 import MonitorDetailsDisplay from './MonitorDetailsDisplay'
 import CreateMonitorForm from './CreateMonitorForm'
@@ -55,6 +56,7 @@ class MonitorManagerContainer extends Component {
             return;
         }
         this.props.dispatch(fetchMonitorList());
+        this.props.dispatch(fetchContacts());
     }
 
     handleSelectMonitorClick(monitorId) {
@@ -139,7 +141,8 @@ class MonitorManagerContainer extends Component {
                             </div>
                             <div className="panel-body">
                                 <CreateMonitorForm onSubmit={this.handleCreateMonitorSubmit}
-                                                   errorMessage={this.props.createMonitorFormErrorMessage}/>
+                                                   errorMessage={this.props.createMonitorFormErrorMessage}
+                                                   contacts={this.props.contacts}/>
                             </div>
                         </div>
                     </div>
@@ -192,7 +195,8 @@ function mapStateToProps(state) {
         selectedMonitor: state.monitor.list.find((monitor) => monitor.id === monitorId),
         selectedMonitorPings: state.monitor.pings[monitorId] || [],
         selectedMonitorEvents: state.monitor.events[monitorId] || [],
-        createMonitorFormErrorMessage: state.createMonitorForm.errorMessage
+        createMonitorFormErrorMessage: state.createMonitorForm.errorMessage,
+        contacts: state.contacts
     }
 }
 

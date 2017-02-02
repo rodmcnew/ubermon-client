@@ -5,6 +5,7 @@ import monitorReducer from './monitor/monitorReducer'
 import createAccountFormReducer from './user/createAccountFormReducer'
 import createMonitorFormReducer from './monitor/createMonitorFormReducer'
 import resetPasswordFormReducer from './user/resetPasswordFormReducer'
+import contactReducer from './contact/contactReducer'
 
 const rootReducer = combineReducers({
     session: sessionReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     loginForm: loginFormReducer,
     createAccountForm: createAccountFormReducer,
     createMonitorForm: createMonitorFormReducer,
-    resetPasswordForm: resetPasswordFormReducer
+    resetPasswordForm: resetPasswordFormReducer,
+    contacts: contactReducer
 });
 
 export default rootReducer

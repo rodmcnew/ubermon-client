@@ -4,6 +4,7 @@ import configureStore from './configureStore'
 import {Router, Route, IndexRoute, hashHistory} from 'react-router'
 import MonitorManagerContainer from './monitor/MonitorManagerContainer'
 import ResetPasswordContainer from './user/ResetPasswordContainer'
+import ResetPasswordEmailLandingContainer from './user/ResetPasswordEmailLandingContainer'
 import Home from './home/Home'
 import Privacy from './legal/Privacy'
 import Terms from './legal/Terms'
@@ -45,6 +46,7 @@ export default class App extends Component {
                                 <IndexRoute component={Home}/>
                                 <Route path="dashboard" component={MonitorManagerContainer}/>
                                 <Route path="reset-password" component={ResetPasswordContainer}/>
+                                <Route path="reset-password-email-landing" component={ResetPasswordEmailLandingContainer}/>
                                 <Route path="privacy" component={Privacy}/>
                                 <Route path="terms" component={Terms}/>
                                 {/*<Route path="contact" component={ContactUs}/>*/}
