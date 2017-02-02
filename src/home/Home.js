@@ -42,8 +42,8 @@ export default class Home extends Component {
                             </div>
                             <div className="panel-body">
                                 <LoginFormContainer/>
-                                {/*<br/>*/}
-                                {/*<a href="/#/reset-password">Forgot Password</a>*/}
+                                <br/>
+                                <a href="/#/reset-password">Forgot Password</a>
                             </div>
                         </div>
                     </div>

@@ -42,7 +42,9 @@ export default class ResetPasswordForm extends Component {
                             }
                             <div className="form-group">
                                 <label htmlFor="resetPasswordEmail">Email address:</label>
-                                <input onChange={this.handleEmailChange} type="email"
+                                <input onChange={this.handleEmailChange}
+                                       type="email"
+                                       required={true}
                                        className="form-control ng-pristine ng-untouched ng-valid ng-empty ng-valid-email"
                                        id="resetPasswordEmail"/>
                             </div>

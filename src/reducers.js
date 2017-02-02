@@ -7,6 +7,7 @@ import createMonitorFormReducer from './monitor/createMonitorFormReducer'
 import resetPasswordFormReducer from './user/resetPasswordFormReducer'
 import contactReducer from './contact/contactReducer'
 import editMonitorFormReducer from './monitor/editMonitorFormReducer'
+import resetPasswordEmailLandingFormReducer from './user/resetPasswordEmailLandingFormReducer'
 
 const rootReducer = combineReducers({
     session: sessionReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     createMonitorForm: createMonitorFormReducer,
     resetPasswordForm: resetPasswordFormReducer,
     contacts: contactReducer,
-    editMonitorForm: editMonitorFormReducer
+    editMonitorForm: editMonitorFormReducer,
+    resetPasswordEmailLandingForm: resetPasswordEmailLandingFormReducer
 });
 
 export default rootReducer

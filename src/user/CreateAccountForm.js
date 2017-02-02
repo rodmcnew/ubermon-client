@@ -28,6 +28,7 @@ export default class CreateAccountForm extends Component {
     handleFormSubmit(event) {
         event.preventDefault();
         this.props.onSubmit(this.state);
+        this.captcha.reset();//Reset the captcha so the user doesn't get stuck if the form is invalid
     }
 
     render() {
@@ -52,15 +53,12 @@ export default class CreateAccountForm extends Component {
                     </div>
                     <div className="form-group">
                         <Recaptcha
+                            ref={(captcha) => {
+                                this.captcha = captcha;
+                            }}
                             sitekey={config.recaptchaPubKey}
                             onChange={this.handleCaptchaChange}
                         />
-                        {/*<div vc-recaptcha*/}
-                        {/*theme="'light'"*/}
-                        {/*key="captcha.key"*/}
-                        {/*on-create="captcha.setWidgetId(widgetId)"*/}
-                        {/*on-success="captcha.setResponse(response)"*/}
-                        {/*on-expire="captcha.cbExpiration()"/>*/}
                     </div>
                     <button type="submit" className="btn btn-primary">Create a Free Account</button>
                 </form>
