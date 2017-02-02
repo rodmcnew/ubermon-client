@@ -8,7 +8,7 @@ import ResetPasswordEmailLandingContainer from './user/ResetPasswordEmailLanding
 import Home from './home/Home'
 import Privacy from './legal/Privacy'
 import Terms from './legal/Terms'
-// import ContactUs from './contact-us/ContactUs'
+import ContactUs from './contact-us/ContactUs'
 import './App.css'
 const store = configureStore();
 
@@ -30,10 +30,10 @@ export default class App extends Component {
                                 <a href="/#privacy">Privacy</a>
                                 <span>&nbsp;|&nbsp;</span>
                                 <a href="/#terms">Terms</a>
+                                <span>&nbsp;|&nbsp;</span>
+                                <a href="/#contact">Contact Us</a>
                                 {/*<span>&nbsp;|&nbsp;</span>*/}
                                 {/*<a href="https://ubermon.herokuapp.com/explorer/">*/}
-                                {/*<span>&nbsp;|&nbsp;</span>*/}
-                                {/*<a href="/#contact">Contact Us</a>*/}
                             </div>
                         </div>
                         <br/><br/>
@@ -49,7 +49,7 @@ export default class App extends Component {
                                 <Route path="reset-password-email-landing" component={ResetPasswordEmailLandingContainer}/>
                                 <Route path="privacy" component={Privacy}/>
                                 <Route path="terms" component={Terms}/>
-                                {/*<Route path="contact" component={ContactUs}/>*/}
+                                <Route path="contact" component={ContactUs}/>
                             </Route>
                         </Router>
                     </div>

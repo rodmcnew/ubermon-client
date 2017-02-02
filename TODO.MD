@@ -2,7 +2,6 @@ Must:
 
 Should:
 Prevent JS error when clicking "dashboard" when not logged in
-Make contact us form
 allow contacts to be CRUD'd and uncomment "Email alerts (Email to SMS is allowed)"
 Fix making a call to change password to null crashes the node app
 
