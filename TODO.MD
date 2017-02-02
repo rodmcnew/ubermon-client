@@ -1,5 +1,4 @@
 Must:
-Make IE11 work
 
 Should:
 Prevent JS error when clicking "dashboard" when not logged in
