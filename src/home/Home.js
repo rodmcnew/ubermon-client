@@ -28,7 +28,7 @@ export default class Home extends Component {
                                 <ul>
                                     <li>50 monitors</li>
                                     <li>Checks run every minute</li>
-                                    <li>Email alerts (Email to SMS is allowed)</li>
+                                    {/*<li>Email alerts (Email to SMS is allowed)</li>*/}
                                     {/*<li>Email-to-SMS alerts</li>*/}
                                 </ul>
                                 <CreateAccountFormContainer/>

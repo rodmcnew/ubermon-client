@@ -4,7 +4,7 @@ Should:
 Make contact us form
 refresh monitor detail with setinterval type thing
 refreash many times in a row imedietly after creation
-allow contacts to be CRUD'd
+allow contacts to be CRUD'd and uncomment "Email alerts (Email to SMS is allowed)"
 Get a logo
 Fix making a call to change password to null crashes the node app
 
