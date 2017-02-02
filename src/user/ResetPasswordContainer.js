@@ -8,23 +8,26 @@ class ResetPasswordFormContainer extends Component {
     constructor(props) {
         super(props);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.state = {resetEmailSent: false};
     }
 
     handleFormSubmit(credentials) {
-        this.props.dispatch(resetPassword(credentials))
-            .then(() => {
-                this.setState({resetEmailSent: true});
-            });
+        this.props.dispatch(resetPassword(credentials, () => {
+            this.setState({resetEmailSent: true});
+        }))
     }
 
     render() {
-        return (<ResetPasswordForm onSubmit={this.handleFormSubmit} resetEmailSent={this.state.resetEmailSent}/>)
+        return (<ResetPasswordForm onSubmit={this.handleFormSubmit}
+                                   errorMessage={this.props.errorMessage}
+                                   succeeded={this.props.succeeded}/>)
     }
 }
 
 function mapStateToProps(state) {
-    return {}
+    return {
+        errorMessage: state.resetPasswordForm.errorMessage,
+        succeeded: state.resetPasswordForm.succeeded
+    }
 }
 
 export default connect(mapStateToProps)(withRouter(ResetPasswordFormContainer))

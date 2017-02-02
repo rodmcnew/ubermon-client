@@ -12,3 +12,5 @@ refresh monitor detail with setinterval type thing
 allow monitors to be edited
 refreash many times in a row imedietly after creation
 https://rodmcnew.com show starting forever (SSL)
+Make contact us form
+Get reset password working

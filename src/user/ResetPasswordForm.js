@@ -5,7 +5,7 @@ export default class ResetPasswordForm extends Component {
         super(props);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.state = {email: null}
+        this.state = {email: ''}
     }
 
     handleEmailChange(event) {
@@ -18,6 +18,7 @@ export default class ResetPasswordForm extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div className="col-sm-6">
                 <div className="panel panel-primary">
@@ -25,18 +26,20 @@ export default class ResetPasswordForm extends Component {
                         <h3 className="panel-title">Reset Password</h3>
                     </div>
                     <div className="panel-body">
-                        {this.props.resetEmailSent &&
+                        {this.props.succeeded &&
                         <div className="alert alert-success ng-hide">
                             We sent you a password reset email. Please check your email and click the link
                             inside to
                             reset you password.
                         </div>
                         }
-                        {!this.props.resetEmailSent &&
+                        {!this.props.succeeded &&
                         <form onSubmit={this.handleFormSubmit}>
+                            {this.props.errorMessage &&
                             <div className="alert alert-danger ng-binding ng-hide">
-                                @TODO show email not found error here
+                                {this.props.errorMessage}
                             </div>
+                            }
                             <div className="form-group">
                                 <label htmlFor="resetPasswordEmail">Email address:</label>
                                 <input onChange={this.handleEmailChange} type="email"
@@ -55,5 +58,6 @@ export default class ResetPasswordForm extends Component {
 
 ResetPasswordForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    resetEmailSent: PropTypes.bool.isRequired
+    succeeded: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string
 };
