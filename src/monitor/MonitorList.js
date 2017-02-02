@@ -58,13 +58,13 @@ export default class MonitorList extends Component {
                                 <span className="glyphicon glyphicon-trash" title="Delete"/>
                             </button>
                             <span style={{float: 'right'}}>&nbsp;</span>
-                            {/*<button onClick={(event) => {*/}
-                                {/*event.stopPropagation();*/}
-                                {/*this.props.onEditMonitor(monitor.id)*/}
-                            {/*}} style={{float: 'right'}}*/}
-                                    {/*className="btn btn-default btn-xs">*/}
-                                {/*<span className="glyphicon glyphicon-edit" title="Edit"/>*/}
-                            {/*</button>*/}
+                            <button onClick={(event) => {
+                                event.stopPropagation();
+                                this.props.onEditMonitor(monitor.id)
+                            }} style={{float: 'right'}}
+                                    className="btn btn-default btn-xs">
+                                <span className="glyphicon glyphicon-edit" title="Edit"/>
+                            </button>
                         </td>
                     </tr>
                 )}

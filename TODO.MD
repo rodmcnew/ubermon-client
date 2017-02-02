@@ -1,7 +1,6 @@
 Must:
 is app crashing when giving bad domains like http://rodmcnew4.com
 https://rodmcnew.com show starting forever (SSL)
-allow monitors to be edited
 
 Should:
 signup - captcha becomes "invalid" and you get stuck after second attempt

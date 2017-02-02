@@ -6,13 +6,13 @@ import {
     fetchMonitorPings,
     fetchMonitorEvents,
     deleteMonitor,
-    createMonitor
+    createMonitor,
+    updateMonitor
 } from './MonitorActions'
 import {fetchContacts} from '../contact/contactActions'
 import MonitorList from './MonitorList'
 import MonitorDetailsDisplay from './MonitorDetailsDisplay'
-import CreateMonitorForm from './CreateMonitorForm'
-import EditMonitorForm from './EditMonitorForm'
+import MonitorDetailsForm from './MonitorDetailsForm'
 
 class MonitorManagerContainer extends Component {
     constructor(props) {
@@ -22,6 +22,7 @@ class MonitorManagerContainer extends Component {
         this.handleMonitorEditClick = this.handleMonitorEditClick.bind(this);
         this.handleDeleteMonitorConfirm = this.handleDeleteMonitorConfirm.bind(this);
         this.handleCreateMonitorSubmit = this.handleCreateMonitorSubmit.bind(this);
+        this.handleMonitorEditSubmit = this.handleMonitorEditSubmit.bind(this);
         this.state = {mode: 'display'};
         this.ubermonConfig = { //@TODO move out
             monitorTypes: {
@@ -97,6 +98,26 @@ class MonitorManagerContainer extends Component {
         }))
     }
 
+    handleMonitorEditSubmit(monitorData) {
+        const dispatch = this.props.dispatch;
+        let self = this;
+        dispatch(updateMonitor(monitorData, () => {
+            dispatch(fetchMonitorList()).then(() => {
+                self.setState({mode: 'display'});
+            })
+        }))
+    }
+
+    getNewMonitor() {
+        return {
+            name: '',
+            url: 'https://',
+            interval: 5,
+            contactIds: [],
+            type: 'h'
+        }
+    }
+
     render() {
         let view = this.state.mode;
         if (this.props.monitorList.length === 0) {
@@ -140,9 +161,10 @@ class MonitorManagerContainer extends Component {
                                 <h3 className="panel-title">Create New Monitor</h3>
                             </div>
                             <div className="panel-body">
-                                <CreateMonitorForm onSubmit={this.handleCreateMonitorSubmit}
-                                                   errorMessage={this.props.createMonitorFormErrorMessage}
-                                                   contacts={this.props.contacts}/>
+                                <MonitorDetailsForm onSubmit={this.handleCreateMonitorSubmit}
+                                                    errorMessage={this.props.createMonitorFormErrorMessage}
+                                                    contacts={this.props.contacts}
+                                                    monitor={this.getNewMonitor()}/>
                             </div>
                         </div>
                     </div>
@@ -170,12 +192,10 @@ class MonitorManagerContainer extends Component {
                                 <h3 className="panel-title">Edit Monitor</h3>
                             </div>
                             <div className="panel-body">
-                                <EditMonitorForm/>
-                                {/*<MonitorDetailsDisplay*/}
-                                {/*monitor={this.props.selectedMonitor}*/}
-                                {/*monitorIntervals={this.ubermonConfig.monitorIntervals}*/}
-                                {/*events={this.props.selectedMonitorEvents}*/}
-                                {/*pings={this.props.selectedMonitorPings}/>*/}
+                                <MonitorDetailsForm onSubmit={this.handleMonitorEditSubmit}
+                                                    errorMessage={this.props.editMonitorFormErrorMessage}
+                                                    contacts={this.props.contacts}
+                                                    monitor={this.props.selectedMonitor}/>
                             </div>
                         </div>
                     </div>
@@ -196,7 +216,8 @@ function mapStateToProps(state) {
         selectedMonitorPings: state.monitor.pings[monitorId] || [],
         selectedMonitorEvents: state.monitor.events[monitorId] || [],
         createMonitorFormErrorMessage: state.createMonitorForm.errorMessage,
-        contacts: state.contacts
+        contacts: state.contacts,
+        editMonitorFormErrorMessage: state.editMonitorForm.errorMessage
     }
 }
 

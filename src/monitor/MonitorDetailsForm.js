@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 
-export default class CreateMonitorForm extends Component {
+export default class MonitorDetailsForm extends Component {
     constructor(props) {
         super(props);
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -8,7 +8,15 @@ export default class CreateMonitorForm extends Component {
         this.handleUrlChange = this.handleUrlChange.bind(this);
         this.handleIntervalChange = this.handleIntervalChange.bind(this);
         this.handleContactCheckChange = this.handleContactCheckChange.bind(this);
-        this.state = {name: null, url: null, interval: 5, contactIds: [], type: 'h'}
+        this.state = props.monitor;
+    }
+
+    componentWillReceiveProps(props) {
+        // If we are switching to a new monitor load it into the form, otherwise
+        // don't so we don't clear invalid form data
+        if(!this.state.id || props.monitor.id !== this.state.id){
+            this.setState(props.monitor)
+        }
     }
 
     handleContactCheckChange(checked, contactId) {
@@ -54,18 +62,23 @@ export default class CreateMonitorForm extends Component {
                 }
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
-                    <input onChange={this.handleNameChange} type="text"
+                    <input onChange={this.handleNameChange}
+                           value={this.state.name}
+                           type="text"
                            className="form-control" id="name"/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="url">URL</label>
-                    <input onChange={this.handleUrlChange} type="text"
+                    <input onChange={this.handleUrlChange}
+                           value={this.state.url}
+                           type="text"
                            className="form-control" id="url"/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="interval">Monitoring Interval</label>
                     &nbsp;
-                    <select onChange={this.handleIntervalChange} defaultValue="5">
+                    <select onChange={this.handleIntervalChange}
+                            defaultValue={this.state.interval}>
                         <option label="Every minute" value="1">Every minute</option>
                         <option label="Every 2 minutes" value="2">Every 2 minutes</option>
                         <option label="Every 5 minutes" value="5">Every 5 minutes</option>
@@ -82,7 +95,9 @@ export default class CreateMonitorForm extends Component {
                     {this.props.contacts.map((contact, i) =>
                         <div key={i}>
                             <label style={{fontWeight: 'normal'}}>
-                                <input type="checkbox" value="1"
+                                <input type="checkbox"
+                                       checked={this.state.contactIds.indexOf(contact.id) !== -1}
+                                       value="1"
                                        onChange={(event) => this.handleContactCheckChange(event.target.checked, contact.id)}/>
                                 <span>&nbsp;</span>
                                 <span className="ng-binding">{contact.email}</span>
@@ -97,8 +112,9 @@ export default class CreateMonitorForm extends Component {
     }
 }
 
-CreateMonitorForm.propTypes = {
+MonitorDetailsForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     errorMessage: PropTypes.string,
-    contacts: PropTypes.array.isRequired
+    contacts: PropTypes.array.isRequired,
+    monitor: PropTypes.object.isRequired
 };
