@@ -11,9 +11,11 @@ class LoginFormContainer extends Component {
     }
 
     handleFormSubmit(credentials) {
-        this.props.dispatch(login(credentials, () => {
-            this.props.router.push('/dashboard')
-        }))
+        this.props.dispatch(login(credentials)).then(() => {
+            if (!this.props.errorMessage) {
+                this.props.router.push('/dashboard');
+            }
+        });
     }
 
     render() {

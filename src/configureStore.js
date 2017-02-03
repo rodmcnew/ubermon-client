@@ -3,6 +3,8 @@ import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import rootReducer from './reducers'
 import {createSession} from 'redux-session';
+import axiosMiddleware from 'redux-axios';
+import httpClient from './httpClient'
 
 const loggerMiddleware = createLogger();
 
@@ -21,6 +23,7 @@ export default function configureStore(preloadedState) {
         preloadedState,
         applyMiddleware(
             thunkMiddleware,
+            axiosMiddleware({default: httpClient}),
             localStorageSession,
             loggerMiddleware
         )
